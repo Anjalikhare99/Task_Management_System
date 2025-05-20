@@ -20,15 +20,18 @@ def create_project():
 
 @bp.route("/", methods=["GET"])
 def list_projects():
-    projects = Project.query.all()
-    result = []
-    for p in projects:
-        result.append({
-            "id": p.id,
-            "name": p.name,
-            "description": p.description
-        })
-    return jsonify(result)
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 10, type=int)
+
+    pagination = Project.query.paginate(page=page, per_page=per_page, error_out=False)
+    projects = pagination.items
+
+    return jsonify({
+        "projects": [{"id": p.id, "name": p.name, "description": p.description} for p in projects],
+        "total": pagination.total,
+        "page": pagination.page,
+        "pages": pagination.pages
+    })
 
 @bp.route("/<int:project_id>/tasks", methods=["GET"])
 def list_tasks_under_project(project_id):

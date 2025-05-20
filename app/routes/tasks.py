@@ -83,9 +83,11 @@ def list_tasks_by_user(user_id):
     if not user:
         return jsonify({"error": "User not found"}), 404
 
-    tasks = Task.query.filter_by(user_id=user.id).all()
-    if not tasks:
-        return jsonify({"message": "No tasks found for this user"}), 200
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 10, type=int)
+
+    pagination = Task.query.filter_by(user_id=user.id).paginate(page=page, per_page=per_page, error_out=False)
+    tasks = pagination.items
 
     result = []
     for t in tasks:
@@ -97,11 +99,22 @@ def list_tasks_by_user(user_id):
             "project_id": t.project_id,
             "dependencies": [d.id for d in t.dependencies]
         })
-    return jsonify(result), 200
+
+    return jsonify({
+        "tasks": result,
+        "total": pagination.total,
+        "page": pagination.page,
+        "pages": pagination.pages
+    })
 
 @bp.route("/status/<string:status>", methods=["GET"])
 def list_tasks_by_status(status):
-    tasks = Task.query.filter_by(status=status).all()
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 10, type=int)
+
+    pagination = Task.query.filter_by(status=status).paginate(page=page, per_page=per_page, error_out=False)
+    tasks = pagination.items
+
     result = []
     for t in tasks:
         result.append({
@@ -112,4 +125,10 @@ def list_tasks_by_status(status):
             "project_id": t.project_id,
             "dependencies": [d.id for d in t.dependencies]
         })
-    return jsonify(result)
+
+    return jsonify({
+        "tasks": result,
+        "total": pagination.total,
+        "page": pagination.page,
+        "pages": pagination.pages
+    })
