@@ -18,8 +18,8 @@ Setup Instructions
 
 1. Clone the Repository
    --------------------
-   git clone <your-repo-url>
-   cd <your-project-folder>
+   git clone https://github.com/Anjalikhare99/Task_Management_System.git
+   cd Task_Management_System
 
 2. Install Dependencies
    --------------------
