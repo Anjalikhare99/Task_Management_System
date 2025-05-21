@@ -1,9 +1,9 @@
-ask Management REST API
+Task Management REST API
 
 Project Overview
 ----------------
-Ye ek simple REST API hai jo task management ke liye banaya gaya hai.
-Isme Users, Projects, aur Tasks manage kar sakte ho with support for task dependencies.
+This is a simple REST API built for task management.
+It allows you to manage Users, Projects, and Tasks with support for task dependencies.
 
 Technologies Used
 -----------------
@@ -25,7 +25,7 @@ Setup Instructions
    --------------------
    pip install -r requirements.txt
 
-   Agar requirements.txt nahi hai toh:
+   If requirements.txt is not available:
    pip install Flask Flask-SQLAlchemy psycopg2-binary
 
 3. Configure Database
@@ -117,6 +117,6 @@ Troubleshooting
 
 Contact
 -------
-Agar koi issue aaye toh mujhe bata dena ya code me comments check kar lena.
+If you face any issues, feel free to let me know or check the comments in the code.
 
 Happy coding! 🚀
