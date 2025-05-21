@@ -42,18 +42,33 @@ Setup Instructions
    Run custom Flask CLI command to create tables:
    flask create-db
 
-5. (Optional) Seed Sample Data
+5. Database Migration Steps
+   ------------------------
+   Initialize migration (only once):
+      flask db init
+
+   Create migration files (after defining/changing models):
+      flask db migrate -m "Initial migration"
+
+   Apply migrations to database:
+      flask db upgrade
+
+   After model changes (add/remove fields), run:
+      flask db migrate -m "Updated schema"
+      flask db upgrade
+
+6. (Optional) Seed Sample Data
    ----------------------------
    python seed.py
 
-6. Run the Flask Application
+7. Run the Flask Application
    --------------------------
    flask run
 
    Ya agar run.py se start karte ho:
    python run.py
 
-7. Access Base URL
+8. Access Base URL
    ----------------
    http://127.0.0.1:5000/
 
